@@ -1,0 +1,46 @@
+name: 'Terraform'
+
+# on:
+#   push:
+#     branches:
+#     - "master"
+on:
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    # runs-on: self-hosted
+    runs-on: ubuntu-latest
+    environment: production
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.1.7
+
+      - name: Configure AWS Credentials       
+        run: |
+          echo 'aws-access-key = "${{ secrets.AWS_ACCESS_KEY_ID }}" ' >> secret.tfvars
+          echo 'aws-secret-key = "${{ secrets.AWS_SECRET_ACCESS_KEY }}" ' >> secret.tfvars
+
+      - name: Initialize Terraform
+        run: terraform init -backend-config="access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" -backend-config="secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+
+      - name: Plan Terraform
+        id: plan
+        run: |
+          terraform plan -var-file="environment.tfvars" -input=false -var-file="secret.tfvars" -lock=false
+
+      - name: apply Terraform
+        run: |
+          terraform apply  -var-file="secret.tfvars" -var-file="environment.tfvars" -lock=false -auto-approve
