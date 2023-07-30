@@ -1,8 +1,7 @@
 
 #  ECS Cluster for Varnish Docker using Terraform
 
-[![Terraform Version](https://img.shields.io/badge/Terraform-v1.0.0-blueviolet)](https://www.terraform.io)
-[![License](https://img.shields.io/badge/license-MIT-brightgreen)](LICENSE)
+[![Terraform Version](https://img.shields.io/badge/Terraform-v1.0.0-blueviolet)](https://www.terraform.io) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 This Terraform project allows you to create an ECS (Elastic Container Service) cluster on AWS and deploy Varnish, an HTTP accelerator, as a Docker container in the cluster. Varnish acts as a caching reverse proxy, improving the performance and scalability of web applications.
 
