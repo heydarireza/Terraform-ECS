@@ -51,7 +51,7 @@ terraform init
 
    - Review and modify the variables in `variables.tf` to match your application's requirements.
    - Adjust any other settings in the Terraform files as needed.
-   - add these secrets (AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY)
+   - Add these secrets (AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY)
 
 4. Deploy the infrastructure:
 
